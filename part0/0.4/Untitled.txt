@@ -1,0 +1,36 @@
+participant browser
+participant server
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+server-->browser: HTML, main.css, main.js
+note over browser:
+JS code requests JSON data from server
+and renders notes to display
+end note
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+server-->browser: [{ content: "HTML is easy", date: "2019-05-23" }, ...]
+
+note over browser:
+User adds new note and submits
+end note
+
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note with new note content
+server-->browser: HTTP 302 Found
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+server-->browser: HTML, main.css, main.js
+
+note over browser:
+JS code requests JSON data from server
+and renders notes to display
+end note
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+server-->browser: [{ content: "HTML is easy", date: "2019-05-23" }, { content: "New note content", date: "2023-05-02" }, ...]
+
+note over browser:
+Browser renders notes to display,
+including the new note added
+by the user
+end note

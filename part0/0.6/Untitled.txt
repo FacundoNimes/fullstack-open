@@ -1,0 +1,35 @@
+participant browser
+participant server
+
+note over browser:
+user navigates to
+single-page app version
+of the notes app
+at https://studies.cs.helsinki.fi/exampleapp/spa
+end note
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa
+server-->browser: HTML-code
+
+note over browser:
+JS code requests JSON data from server
+end note
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+server-->browser: [{ content: "HTML is easy", date: "2019-05-23" }, { content: "New note content", date: "2023-05-02" }, ...]
+
+note over browser:
+user types new note content
+and clicks submit button
+end note
+
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note
+note over browser:
+request includes new note content
+end note
+server-->browser: HTTP 201 Created
+
+note over browser:
+JS code updates the DOM
+to display the new note
+end note
